@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText etname, etan, etiot, etweb;
     TextView tvresult;
     String status="";
+    int i=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +47,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 etname.setError("Please enter marks of WEB");
                 return;
             } else {
-                tvresult.append(("Name: " +etname.getText().toString()) + " | Android: " + (etan.getText().toString()) + " | IOT: " + (etan.getText().toString()) + " | web: " + (etan.getText().toString()) +
+                tvresult.append((i+") "+" Name: " +etname.getText().toString()) + " | Android: " + (etan.getText().toString()) + " | IOT: " + (etiot.getText().toString()) + " | web: " + (etweb.getText().toString()) +
                         " | percentage "+percentage()+ " | status "+status+"\n");
                 Clear();
+                i++;
             }
         }
 
@@ -59,8 +61,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         double android = 0, iot = 0, web = 0;
         android = Double.parseDouble(etan.getText().toString());
-        iot=Double.parseDouble(etan.getText().toString());
-        web = Double.parseDouble(etan.getText().toString());
+        iot=Double.parseDouble(etiot.getText().toString());
+        web = Double.parseDouble(etweb.getText().toString());
         double per = (android + iot + web) / 3;
         if ((android >= 40) && (iot >= 40) && (web >= 40)) {
             status = "Pass";
