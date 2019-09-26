@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         etiot = findViewById(R.id.iot);
         etweb = findViewById(R.id.web);
         tvresult = findViewById(R.id.result);
-        //tvresult.append(" Name:      " + " Android:  " + " IOT:      " + " web:       " + "percentage " + "result" + "\n");
         butcon.setOnClickListener(this);
     }
 
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 etweb.setError("Please enter marks of WEB");
                 return;
             } else {
-                android =  Double.parseDouble(etan.getText().toString());
+                android = Double.parseDouble(etan.getText().toString());
                 iot = Double.parseDouble(etiot.getText().toString());
                 web = Double.parseDouble(etan.getText().toString());
             }
@@ -64,9 +63,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if ((iot <= 100) && (iot >= 0)) {
                     if ((web <= 100) && (web >= 0)) {
                         tvresult.append((i + ") " + " Name: " + etname.getText().toString()) +
-                                " | Android: " + ( decimalFormat.format(Double.parseDouble(etan.getText().toString()))) + // decimalFormat.format(Double.parseDouble(etname.getText().toString())))
-                                " | IOT: " + ( decimalFormat.format(Double.parseDouble(etiot.getText().toString()))) +
-                                " | web: " + ( decimalFormat.format(Double.parseDouble(etweb.getText().toString()))) +
+                                " | Android: " + (decimalFormat.format(Double.parseDouble(etan.getText().toString()))) + // decimalFormat.format(Double.parseDouble(etname.getText().toString())))
+                                " | IOT: " + (decimalFormat.format(Double.parseDouble(etiot.getText().toString()))) +
+                                " | web: " + (decimalFormat.format(Double.parseDouble(etweb.getText().toString()))) +
                                 " | percentage " + percentage() + " | " + status + "\n");
                         Clear();
                         i++;
@@ -90,9 +89,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public String percentage() {
 
         double android = 0, iot = 0, web = 0, per = 0;
-        android = Double.parseDouble( decimalFormat.format(Double.parseDouble(etan.getText().toString())));
-        iot =Double.parseDouble( decimalFormat.format(Double.parseDouble(etiot.getText().toString())));
-        web =Double.parseDouble( decimalFormat.format(Double.parseDouble(etweb.getText().toString())));
+        android = Double.parseDouble(decimalFormat.format(Double.parseDouble(etan.getText().toString())));
+        iot = Double.parseDouble(decimalFormat.format(Double.parseDouble(etiot.getText().toString())));
+        web = Double.parseDouble(decimalFormat.format(Double.parseDouble(etweb.getText().toString())));
 
 
         per = (android + iot + web) / 3;
