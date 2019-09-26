@@ -2,20 +2,25 @@ package com.Gaurav.percentage;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button butcon;
     EditText etname, etan, etiot, etweb;
     TextView tvresult;
-    String status="";
-    int i=1;
+    String status = "";
+    int i = 1;
+    DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,43 +39,70 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.butcon) {
-            if (TextUtils.isEmpty(etname.getText().toString())) {
+            double android = 0, iot = 0, web = 0;
+
+
+            //if((android>=0)||(android<=100)&&((iot>=0)||(iot<=100)&&((web>=0)||(web<=100)))){
+            if ((TextUtils.isEmpty(etname.getText().toString()))) {
                 etname.setError("Please enter name");
                 return;
             } else if (TextUtils.isEmpty(etan.getText().toString())) {
-                etname.setError("Please enter marks of Android");
+                etan.setError("Please enter marks of Android");
                 return;
             } else if (TextUtils.isEmpty(etiot.getText().toString())) {
-                etname.setError("Please enter marks of IOT");
+                etiot.setError("Please enter marks of IOT");
                 return;
             } else if (TextUtils.isEmpty(etweb.getText().toString())) {
-                etname.setError("Please enter marks of WEB");
+                etweb.setError("Please enter marks of WEB");
                 return;
             } else {
-                tvresult.append((i+") "+" Name: " +etname.getText().toString()) + " | Android: " + (etan.getText().toString()) + " | IOT: " + (etiot.getText().toString()) + " | web: " + (etweb.getText().toString()) +
-                        " | percentage "+percentage()+ " | status "+status+"\n");
-                Clear();
-                i++;
+                android =  Double.parseDouble(etan.getText().toString());
+                iot = Double.parseDouble(etiot.getText().toString());
+                web = Double.parseDouble(etan.getText().toString());
             }
-        }
+            if ((android <= 100) && (android >= 0)) {
+                if ((iot <= 100) && (iot >= 0)) {
+                    if ((web <= 100) && (web >= 0)) {
+                        tvresult.append((i + ") " + " Name: " + etname.getText().toString()) +
+                                " | Android: " + ( decimalFormat.format(Double.parseDouble(etan.getText().toString()))) + // decimalFormat.format(Double.parseDouble(etname.getText().toString())))
+                                " | IOT: " + ( decimalFormat.format(Double.parseDouble(etiot.getText().toString()))) +
+                                " | web: " + ( decimalFormat.format(Double.parseDouble(etweb.getText().toString()))) +
+                                " | percentage " + percentage() + " | " + status + "\n");
+                        Clear();
+                        i++;
+                    } else {
+                        etweb.setError("Please enter marks of WEB 0 to 100");
+                    }
 
+                } else {
+                    etiot.setError("Please enter marks of IOT 0 to 100");
+
+                }
+            } else {
+                etan.setError("Please enter marks of Android 0 to 100");
+
+            }
+
+        }
     }
 
 
-    public double percentage() {
+    public String percentage() {
 
-        double android = 0, iot = 0, web = 0;
-        android = Double.parseDouble(etan.getText().toString());
-        iot=Double.parseDouble(etiot.getText().toString());
-        web = Double.parseDouble(etweb.getText().toString());
-        double per = (android + iot + web) / 3;
+        double android = 0, iot = 0, web = 0, per = 0;
+        android = Double.parseDouble( decimalFormat.format(Double.parseDouble(etan.getText().toString())));
+        iot =Double.parseDouble( decimalFormat.format(Double.parseDouble(etiot.getText().toString())));
+        web =Double.parseDouble( decimalFormat.format(Double.parseDouble(etweb.getText().toString())));
+
+
+        per = (android + iot + web) / 3;
         if ((android >= 40) && (iot >= 40) && (web >= 40)) {
             status = "Pass";
         } else {
             status = "fail";
         }
 
-        return per;
+        return decimalFormat.format(per);
     }
 
     public void Clear() {
